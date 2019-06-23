@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN">
+    <appenders>
+        <!--指定控制台输出-->
+        <Console name="Console" target="SYSTEM-OUT">
+            <!--指定日志输出格式-->
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+        </Console>
+        <!--RollingFileAppender使用MaxFileSize设置一个日志文件的最大大小，当产生多个日志时，会在日志名称后面加上".1"、".2"、……这样-->
+        <!--的后缀，我们可以看到RollingFileAppender有个属性MaxBackupIndex，这个属性通过限制日志文件名后缀".n"中的n大小来限制日志数量-->
+        <!--，比如上面MaxBackupIndex=10，其实最大日志数量为11。我-->
+        <!--们知道这个有这个限制是很必要的，当我们的程序在服务器上运行时，随着时间的迁移，日志会越来越多，如果对日志数量没有限制，日志大-->
+        <!--小会越来越大，最后甚至占满整个硬盘。-->
+        <RollingFile name="RollingFileInfo" fileName="D:/info.log"
+                     filePattern="D:/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+           <!--日志过滤策略-->
+            <Filter>
+                <!--//用于指定日志信息的最低级别输出，默认DEBUG-->
+                <ThresholdFilter level="INFO"/>
+            </Filter>
+            <patternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] -%l -%m%n"/>
+            <policies>
+                <!-- 归档每天的文件 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <!-- 限制单个文件大小 -->
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </policies>
+        </RollingFile>
+
+    </appenders>
+    <loggers>
+        <root level="all">
+            <!--控制台输出-->
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileInfo"/>
+        </root>
+    </loggers>
+</configuration>

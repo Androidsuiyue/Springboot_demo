@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="referrer" content="no-referrer"/>
+    <title>hello</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>用户名</td>
+        <td>密 码</td>
+    </tr>
+    <tr th:each="user:${users}">
+        <!--/*@thymesVar id="user" type=""*/-->
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.password}"></td>
+    </tr>
+
+</table>
+
+
+
+<p th:text="'Hello,Thymeleaf'"></p>
+
+<img th:scr="http://img.zcool.cn/community/01f9ea56e282836ac72531cbe0233b.jpg@2o.jpg"/>
+<img th:href="@{http://img.zcool.cn/community/01f9ea56e282836ac72531cbe0233b.jpg@2o.jpg}"/>
+//
+<a th:href="@{http://img.zcool.cn/community/01f9ea56e282836ac72531cbe0233b.jpg@2o.jpg}">111</a>
+</body>
+</html>
